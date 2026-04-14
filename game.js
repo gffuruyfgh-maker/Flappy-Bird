@@ -7,12 +7,12 @@ const bestScoreEl = document.getElementById('bestScore');
 
 // Game constants
 const GRAVITY = 0.15;
-const JUMP_SPEED = -5;
-const TERMINAL_VELOCITY = 8;
+const JUMP_SPEED = -3;
+const TERMINAL_VELOCITY = 6;
 const BASE_PIPE_SPEED = 1.5;
 const PIPE_WIDTH = 60;
 const PIPE_GAP = 130;
-const PIPE_SPAWN_INTERVAL = 2200;
+const PIPE_SPAWN_INTERVAL = 1600;
 const GROUND_HEIGHT = 80;
 const BIRD_X = 100;
 
