@@ -8,7 +8,7 @@ const bestScoreEl = document.getElementById('bestScore');
 // Game constants
 const GRAVITY = 0.15;
 const JUMP_SPEED = -3;
-const TERMINAL_VELOCITY = 6;
+const TERMINAL_VELOCITY = 3;
 const BASE_PIPE_SPEED = 1.5;
 const PIPE_WIDTH = 60;
 const PIPE_GAP = 130;
