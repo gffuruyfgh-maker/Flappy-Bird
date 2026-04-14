@@ -350,6 +350,18 @@ canvas.addEventListener('touchstart', (e) => {
     handleInput();
 });
 
+startScreen.addEventListener('click', handleInput);
+startScreen.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleInput();
+});
+
+gameOverScreen.addEventListener('click', handleInput);
+gameOverScreen.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    handleInput();
+});
+
 // Initialize best score display
 bestScoreEl.textContent = bestScore;
 
