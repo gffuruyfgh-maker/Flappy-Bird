@@ -12,11 +12,13 @@ const TERMINAL_VELOCITY = 6;
 const BASE_PIPE_SPEED = 1.5;
 const PIPE_WIDTH = 60;
 const PIPE_GAP = 130;
-const PIPE_SPAWN_INTERVAL = 1000;
+const PIPE_SPAWN_INTERVAL = 1500;
+const MIN_SPAWN_INTERVAL = 600;
 const GROUND_HEIGHT = 80;
 const BIRD_X = 100;
 
 let currentPipeSpeed = BASE_PIPE_SPEED;
+let currentSpawnInterval = PIPE_SPAWN_INTERVAL;
 
 // Game state
 let gameState = 'start';
@@ -118,6 +120,10 @@ function updatePipes() {
             // Every 10 points, increase speed by 10%
             if (score % 10 === 0) {
                 currentPipeSpeed = BASE_PIPE_SPEED * (1 + score / 100);
+            }
+            // Every 3 pipes, decrease spawn interval by 100ms
+            if (score % 3 === 0) {
+                currentSpawnInterval = Math.max(MIN_SPAWN_INTERVAL, currentSpawnInterval - 100);
             }
         }
 
@@ -265,6 +271,7 @@ function startGame() {
     score = 0;
     pipes = [];
     currentPipeSpeed = BASE_PIPE_SPEED;
+    currentSpawnInterval = PIPE_SPAWN_INTERVAL;
     bird.reset();
     startScreen.classList.add('hidden');
     gameOverScreen.classList.add('hidden');
@@ -294,7 +301,7 @@ function gameLoop() {
 
     if (gameState === 'playing') {
         // Spawn pipes
-        if (Date.now() - lastPipeSpawn > PIPE_SPAWN_INTERVAL) {
+        if (Date.now() - lastPipeSpawn > currentSpawnInterval) {
             createPipe();
             lastPipeSpawn = Date.now();
         }
