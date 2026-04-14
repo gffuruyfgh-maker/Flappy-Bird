@@ -7,14 +7,16 @@ const bestScoreEl = document.getElementById('bestScore');
 
 // Game constants
 const GRAVITY = 0.35;
-const JUMP_SPEED = -7;
+const JUMP_SPEED = -5;
 const TERMINAL_VELOCITY = 8;
-const PIPE_SPEED = 2;
+const BASE_PIPE_SPEED = 1.5;
 const PIPE_WIDTH = 60;
 const PIPE_GAP = 130;
-const PIPE_SPAWN_INTERVAL = 1800;
+const PIPE_SPAWN_INTERVAL = 2200;
 const GROUND_HEIGHT = 80;
 const BIRD_X = 100;
+
+let currentPipeSpeed = BASE_PIPE_SPEED;
 
 // Game state
 let gameState = 'start';
@@ -107,12 +109,16 @@ function createPipe() {
 
 function updatePipes() {
     for (let i = pipes.length - 1; i >= 0; i--) {
-        pipes[i].x -= PIPE_SPEED;
+        pipes[i].x -= currentPipeSpeed;
 
         // Check if bird passed the pipe
         if (!pipes[i].passed && pipes[i].x + PIPE_WIDTH < bird.x) {
             pipes[i].passed = true;
             score++;
+            // Every 10 points, increase speed by 10%
+            if (score % 10 === 0) {
+                currentPipeSpeed = BASE_PIPE_SPEED * (1 + score / 100);
+            }
         }
 
         // Remove off-screen pipes
@@ -172,7 +178,7 @@ function drawGround() {
 }
 
 function updateGround() {
-    groundX -= PIPE_SPEED;
+    groundX -= currentPipeSpeed;
     if (groundX <= -40) {
         groundX = 0;
     }
@@ -258,6 +264,7 @@ function startGame() {
     gameState = 'playing';
     score = 0;
     pipes = [];
+    currentPipeSpeed = BASE_PIPE_SPEED;
     bird.reset();
     startScreen.classList.add('hidden');
     gameOverScreen.classList.add('hidden');
